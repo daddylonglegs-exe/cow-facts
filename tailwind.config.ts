@@ -19,6 +19,9 @@ export default {
       }
     },
     extend: {
+      fontFamily: {
+        'title': ['"Fredoka One"', 'cursive', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -97,7 +100,8 @@ export default {
           '75%': { transform: 'rotate(10deg)' }
         },
         'cow-flip': {
-          '0%': { transform: 'rotateY(0)' },
+          '0%': { transform: 'rotateY(0deg)' },
+          '50%': { transform: 'rotateY(180deg)' },
           '100%': { transform: 'rotateY(360deg)' }
         },
         'fade-in': {

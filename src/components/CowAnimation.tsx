@@ -14,8 +14,17 @@ export const CowAnimation: React.FC<CowAnimationProps> = ({
   const [animationClass, setAnimationClass] = useState<string>('');
   const [speechBubble, setSpeechBubble] = useState<string>('');
   const [isBubbleVisible, setIsBubbleVisible] = useState<boolean>(false);
+  
+  // Reference to audio element
+  const mooSoundRef = React.useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    // Initialize the audio element
+    if (!mooSoundRef.current) {
+      mooSoundRef.current = new Audio("/moo-sound.mp3");
+      mooSoundRef.current.preload = "auto";
+    }
+
     if (animationState === 'idle') {
       setAnimationClass('animate-float');
       setSpeechBubble('');
@@ -27,12 +36,18 @@ export const CowAnimation: React.FC<CowAnimationProps> = ({
     if (animationState === 'jump') {
       setAnimationClass('animate-cow-jump');
       setSpeechBubble('MOOOOO!');
+      // Play sound when animation is correct
+      mooSoundRef.current?.play().catch(e => console.log("Audio playback failed:", e));
     } else if (animationState === 'shake') {
       setAnimationClass('animate-cow-shake');
       setSpeechBubble('MOOOOO!');
+      // Play sound when animation is correct
+      mooSoundRef.current?.play().catch(e => console.log("Audio playback failed:", e));
     } else if (animationState === 'flip') {
       setAnimationClass('animate-cow-flip');
       setSpeechBubble('MOOOOO!');
+      // Play sound when animation is correct
+      mooSoundRef.current?.play().catch(e => console.log("Audio playback failed:", e));
     } else if (animationState === 'wrong') {
       setAnimationClass('animate-cow-shake');
       setSpeechBubble('No...');
