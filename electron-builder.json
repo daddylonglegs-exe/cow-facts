@@ -9,6 +9,9 @@
     "dist/**/*",
     "electron/**/*"
   ],
+  "extraMetadata": {
+    "main": "electron/main.js"
+  },
   "win": {
     "icon": "public/favicon.ico",
     "target": "nsis"
