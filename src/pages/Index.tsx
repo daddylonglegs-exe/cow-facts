@@ -32,7 +32,7 @@ const Index = () => {
     img.src = "/lovable-uploads/157d82cf-97ee-428f-8233-67c2576a4d0b.png";
     
     const cowImg = new Image();
-    cowImg.src = "/lovable-uploads/53f2846b-d8d9-4543-8b3e-87c3f8832c48.png";
+    cowImg.src = "/lovable-uploads/cbcdaf46-1848-4f1c-afd6-b3fb35d358e4.png";
   }, []);
   
   return (

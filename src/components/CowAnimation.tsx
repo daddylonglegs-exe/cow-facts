@@ -66,7 +66,7 @@ export const CowAnimation: React.FC<CowAnimationProps> = ({
       {/* Cow image */}
       <div className={cn("relative w-full h-full transition-all duration-300", animationClass)}>
         <img 
-          src="/lovable-uploads/53f2846b-d8d9-4543-8b3e-87c3f8832c48.png" 
+          src="/lovable-uploads/cbcdaf46-1848-4f1c-afd6-b3fb35d358e4.png" 
           alt="Cartoon cow" 
           className="w-full h-auto object-contain"
         />
