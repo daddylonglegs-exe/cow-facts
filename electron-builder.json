@@ -1,0 +1,24 @@
+
+{
+  "appId": "com.cowfacts.app",
+  "productName": "Cow Facts Game",
+  "directories": {
+    "output": "release/"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*"
+  ],
+  "win": {
+    "icon": "public/favicon.ico",
+    "target": "nsis"
+  },
+  "mac": {
+    "icon": "public/favicon.ico",
+    "target": "dmg"
+  },
+  "linux": {
+    "icon": "public/favicon.ico",
+    "target": "AppImage"
+  }
+}
