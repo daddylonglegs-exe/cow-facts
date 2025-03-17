@@ -1,4 +1,3 @@
-
 export interface CowFact {
   text: string;
   isTrue: boolean;
@@ -174,7 +173,7 @@ const cowFacts: CowFact[] = [
   {
     text: "Cows have regional accents in their moos.",
     isTrue: true,
-    explanation: "Research suggests that cows develop distinct "dialects" based on their herd, similar to regional accents."
+    explanation: "Research suggests that cows develop distinct 'dialects' based on their herd, similar to regional accents."
   },
   {
     text: "The first cow in America arrived on the second voyage of Columbus.",
