@@ -105,12 +105,168 @@ const cowFacts: CowFact[] = [
     text: "A cow-human hybrid was successfully created in a lab in 2015.",
     isTrue: false,
     explanation: "This is completely false. No such hybrid has ever been created, as it's biologically impossible."
+  },
+  {
+    text: "Cows have facial recognition abilities for humans.",
+    isTrue: true,
+    explanation: "Research has shown that cows can recognize and remember individual human faces."
+  },
+  {
+    text: "The average dairy cow weighs about 1,400 pounds.",
+    isTrue: true,
+    explanation: "Most dairy cows weigh between 1,200-1,500 pounds when fully grown."
+  },
+  {
+    text: "Cows have three eyelids.",
+    isTrue: true,
+    explanation: "Cows have a third, transparent eyelid called the nictitating membrane that protects their eyes."
+  },
+  {
+    text: "Cows can predict rain and will lie down before it starts.",
+    isTrue: false,
+    explanation: "This is a myth. Cows lie down for many reasons, but weather prediction isn't one of them."
+  },
+  {
+    text: "A cow's pregnancy lasts 9 months, just like humans.",
+    isTrue: true,
+    explanation: "The gestation period for cows is approximately 283 days, which is about 9 months."
+  },
+  {
+    text: "Cows can be taught to open gates with their horns.",
+    isTrue: true,
+    explanation: "Cows are intelligent and can learn to open gates and simple latches with their horns or noses."
+  },
+  {
+    text: "Cows produce more milk when listening to music.",
+    isTrue: true,
+    explanation: "Several studies have shown that cows produce more milk when exposed to calming music."
+  },
+  {
+    text: "The world record for milk production by a single cow is over 10,000 gallons in one year.",
+    isTrue: true,
+    explanation: "A Wisconsin Holstein cow named Ever-Green-View My Gold-ET produced 77,480 pounds (about 9,000 gallons) of milk in 365 days."
+  },
+  {
+    text: "Cows can survive on only grass their entire lives.",
+    isTrue: true,
+    explanation: "Cows are ruminants designed to eat grass and can get all necessary nutrients from well-managed pasture."
+  },
+  {
+    text: "Most dairy cows only produce milk after being artificially inseminated.",
+    isTrue: true,
+    explanation: "In commercial dairy farms, artificial insemination is the standard practice for breeding dairy cows."
+  },
+  {
+    text: "Cows have a special enzyme that allows them to digest plastic.",
+    isTrue: false,
+    explanation: "Cows cannot digest plastic. Ingesting plastic can be fatal to cows."
+  },
+  {
+    text: "Cows can jump up to 7 feet high when frightened.",
+    isTrue: false,
+    explanation: "While cows can jump, they typically can only jump 2-3 feet high, not 7 feet."
+  },
+  {
+    text: "A cow can smell water from over a mile away.",
+    isTrue: true,
+    explanation: "Cows have an exceptional sense of smell and can detect water sources from great distances."
+  },
+  {
+    text: "Cows have regional accents in their moos.",
+    isTrue: true,
+    explanation: "Research suggests that cows develop distinct "dialects" based on their herd, similar to regional accents."
+  },
+  {
+    text: "The first cow in America arrived on the second voyage of Columbus.",
+    isTrue: true,
+    explanation: "The first cattle in the Americas arrived with Christopher Columbus on his second voyage in 1493."
+  },
+  {
+    text: "Cows are mentioned over 34 times in the Bible.",
+    isTrue: true,
+    explanation: "Cattle are frequently mentioned in the Bible, with references to cows, bulls, calves, and oxen throughout."
+  },
+  {
+    text: "Cows can taste sweet, sour, salty, and bitter flavors.",
+    isTrue: true,
+    explanation: "Cows have taste buds that can detect the same basic flavors humans can, though their preferences differ."
+  },
+  {
+    text: "In India, all cows are legally protected from slaughter nationwide.",
+    isTrue: false,
+    explanation: "While cows are sacred in Hinduism, cow slaughter laws vary by state in India and are not uniform nationwide."
+  },
+  {
+    text: "Cows rarely form close bonds with other cows outside their immediate family.",
+    isTrue: false,
+    explanation: "Cows are highly social and regularly form bonds with non-related herd members."
+  },
+  {
+    text: "Cows can swim and are naturally strong swimmers.",
+    isTrue: true,
+    explanation: "Cows are capable swimmers and can cross rivers and even small lakes when necessary."
+  },
+  {
+    text: "The ancestor of modern cows, the aurochs, was approximately twice the size of today's cows.",
+    isTrue: true,
+    explanation: "Aurochs, extinct since 1627, were much larger than modern cattle, standing up to 6 feet tall at the shoulder."
+  },
+  {
+    text: "Cows can predict earthquakes minutes before they happen.",
+    isTrue: false,
+    explanation: "While some animals may be sensitive to pre-earthquake signals, there's no scientific evidence that cows can predict earthquakes."
+  },
+  {
+    text: "A cow's stomach makes up about 75% of its digestive system.",
+    isTrue: true,
+    explanation: "The multiple compartments of a cow's stomach take up a large portion of their digestive tract."
+  },
+  {
+    text: "Cows are unable to walk backwards for more than a few steps.",
+    isTrue: false,
+    explanation: "Cows can walk backwards normally, though they prefer to turn around and walk forward."
+  },
+  {
+    text: "There are over 800 different breeds of cattle worldwide.",
+    isTrue: true,
+    explanation: "There are approximately 800-1,000 distinct breeds of cattle recognized globally."
+  },
+  {
+    text: "Cows can go up to two weeks without water if necessary.",
+    isTrue: false,
+    explanation: "Cows require fresh water daily and can become severely dehydrated within days without it."
+  },
+  {
+    text: "Cows kill more people than sharks every year.",
+    isTrue: true,
+    explanation: "Statistics show that cows cause approximately 20 human deaths per year in the US alone, more than sharks worldwide."
+  },
+  {
+    text: "A cow's diet directly affects the flavor of its milk.",
+    isTrue: true,
+    explanation: "Different feeds can influence the fat content and flavor compounds in a cow's milk."
+  },
+  {
+    text: "Dairy cows must be milked at least twice a day to prevent discomfort and health issues.",
+    isTrue: true,
+    explanation: "Modern dairy cows are bred to produce large amounts of milk and need regular milking to prevent painful udder pressure."
+  },
+  {
+    text: "Cows have been domesticated for over 10,000 years.",
+    isTrue: true,
+    explanation: "Archaeological evidence suggests cattle were first domesticated around 10,000 years ago in the Middle East."
+  },
+  {
+    text: "All cows grow horns, regardless of gender.",
+    isTrue: true,
+    explanation: "Both male and female cattle naturally grow horns, though many dairy breeds are selectively bred to be hornless (polled)."
   }
 ];
 
-// Shuffle the facts to make the game more interesting
+// Get 10 random facts from the array for each game
 export const getShuffledFacts = (): CowFact[] => {
-  return [...cowFacts].sort(() => Math.random() - 0.5);
+  const shuffled = [...cowFacts].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 10); // Return only 10 facts
 };
 
 export default cowFacts;

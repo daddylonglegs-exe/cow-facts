@@ -114,7 +114,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           transition={{ delay: 0.5, duration: 1 }}
           className="mt-6 text-sm text-purple-700 font-medium"
         >
-          Test your knowledge with {Math.floor(Math.random() * 10) + 10} cow facts!
+          Test your knowledge with 10 cow facts!
         </motion.p>
       </motion.div>
       

@@ -18,7 +18,7 @@ const Index = () => {
   
   const handleStartGame = () => {
     setGameState(GameState.PLAYING);
-    setFacts(getShuffledFacts()); // Shuffle facts each game
+    setFacts(getShuffledFacts()); // Get 10 random facts each game
   };
   
   const handleGameEnd = (score: number, total: number) => {
