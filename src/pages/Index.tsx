@@ -23,7 +23,7 @@ const Index = () => {
   
   const handleGameEnd = (score: number, total: number) => {
     setFinalScore({ score, total });
-    setGameState(GameState.START); // Go back to start for now
+    setGameState(GameState.START); // Go back to start after game ends
   };
 
   // Preload the background image
