@@ -4,8 +4,9 @@ import CowAnimation from './CowAnimation';
 import FactCard from './FactCard';
 import Scoreboard from './Scoreboard';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import { CowFact } from '@/data/cowFacts';
+import { Award } from 'lucide-react';
 
 type GameScreenProps = {
   facts: CowFact[];
@@ -19,6 +20,8 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [cowAnimation, setCowAnimation] = useState<'idle' | 'jump' | 'shake' | 'flip' | 'wrong'>('idle');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [consecutiveCorrect, setConsecutiveCorrect] = useState(0);
+  const [multiplier, setMultiplier] = useState(1);
   
   const currentFact = facts[currentFactIndex];
   const isGameOver = currentFactIndex >= facts.length;
@@ -35,28 +38,52 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Update multiplier based on consecutive correct answers
+  useEffect(() => {
+    if (consecutiveCorrect >= 3) {
+      setMultiplier(2);
+    } else {
+      setMultiplier(1);
+    }
+  }, [consecutiveCorrect]);
+
   const handleAnswer = (userAnswer: boolean) => {
     setIsAnswered(true);
     const isAnswerCorrect = userAnswer === currentFact.isTrue;
     setIsCorrect(isAnswerCorrect);
     
     if (isAnswerCorrect) {
+      // Update consecutive correct counter
+      const newConsecutiveCorrect = consecutiveCorrect + 1;
+      setConsecutiveCorrect(newConsecutiveCorrect);
+      
+      // Apply multiplier for 3+ consecutive correct answers
+      const pointsToAdd = newConsecutiveCorrect >= 3 ? 2 : 1;
+      setScore(prev => prev + pointsToAdd);
+      
       // Play random animation
       const randomIndex = Math.floor(Math.random() * correctAnimations.length);
       setCowAnimation(correctAnimations[randomIndex]);
-      setScore(prev => prev + 1);
-      toast({
-        title: "Correct!",
-        description: "That's right! You know your cow facts.",
-        variant: "default",
-      });
+      
+      // Show appropriate toast message
+      if (newConsecutiveCorrect >= 3) {
+        toast.success(
+          <div className="flex items-center gap-2">
+            <Award className="h-5 w-5 text-yellow-500" />
+            <div>
+              <div className="font-bold">Correct! (x2 POINTS!)</div>
+              <div className="text-sm">{newConsecutiveCorrect} correct in a row!</div>
+            </div>
+          </div>
+        );
+      } else {
+        toast.success("Correct! That's right!");
+      }
     } else {
+      // Reset consecutive correct counter
+      setConsecutiveCorrect(0);
       setCowAnimation('wrong');
-      toast({
-        title: "Incorrect!",
-        description: `The correct answer is: ${currentFact.isTrue ? 'True' : 'False'}`,
-        variant: "destructive",
-      });
+      toast.error(`Incorrect! The correct answer is: ${currentFact.isTrue ? 'True' : 'False'}`);
     }
   };
 
@@ -65,7 +92,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
     if (currentFactIndex === facts.length - 1) {
       // Small delay before ending game
       setTimeout(() => {
-        onGameEnd(score + (isCorrect ? 1 : 0), facts.length);
+        onGameEnd(score + (isCorrect ? (multiplier > 1 ? 2 : 1) : 0), facts.length);
       }, 1000);
     }
   };
@@ -121,9 +148,15 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
       
       {/* Game Content */}
       <div className={`game-container relative z-10 flex flex-col h-full transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        {/* Header with scoreboard */}
+        {/* Header with scoreboard and multiplier */}
         <div className="mt-6 mb-8">
-          <Scoreboard score={score} totalQuestions={facts.length} className="max-w-xs mx-auto" />
+          <Scoreboard 
+            score={score} 
+            totalQuestions={facts.length} 
+            multiplier={multiplier}
+            streakCount={consecutiveCorrect}
+            className="max-w-xs mx-auto" 
+          />
         </div>
         
         {/* Fact card and cow animation */}

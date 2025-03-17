@@ -262,10 +262,10 @@ const cowFacts: CowFact[] = [
   }
 ];
 
-// Get 10 random facts from the array for each game
-export const getShuffledFacts = (): CowFact[] => {
+// Get specified number of random facts from the array for each game
+export const getShuffledFacts = (count: number = 10): CowFact[] => {
   const shuffled = [...cowFacts].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 10); // Return only 10 facts
+  return shuffled.slice(0, count); // Return the specified number of facts
 };
 
 export default cowFacts;

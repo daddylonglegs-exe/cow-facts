@@ -1,16 +1,24 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import CowAnimation from './CowAnimation';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ListFilter } from 'lucide-react';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 
 type StartScreenProps = {
-  onStart: () => void;
+  onStart: (questionCount: 10 | 20) => void;
 };
 
 const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   const [hovering, setHovering] = useState(false);
+  const [questionCount, setQuestionCount] = useState<10 | 20>(10);
   
   // Add a subtle floating animation effect to the elements
   const floatingAnimation = {
@@ -34,6 +42,10 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
         yoyo: Infinity
       }
     }
+  };
+
+  const handleQuestionCountChange = (value: string) => {
+    setQuestionCount(parseInt(value) as 10 | 20);
   };
 
   return (
@@ -93,6 +105,21 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           <CowAnimation animationState="idle" />
         </motion.div>
         
+        <div className="mb-6">
+          <div className="flex items-center justify-center gap-4">
+            <ListFilter className="text-purple-700" />
+            <Select value={questionCount.toString()} onValueChange={handleQuestionCountChange}>
+              <SelectTrigger className="w-40 bg-white/50 border-purple-300">
+                <SelectValue placeholder="Question count" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10 Questions</SelectItem>
+                <SelectItem value="20">20 Questions</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        
         <motion.div
           whileHover="hover"
           variants={buttonVariants}
@@ -100,7 +127,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           onHoverEnd={() => setHovering(false)}
         >
           <Button 
-            onClick={onStart}
+            onClick={() => onStart(questionCount)}
             className="py-4 px-8 text-lg font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full shadow-lg transition-all duration-300"
           >
             <Sparkles className={`mr-2 ${hovering ? 'animate-pulse' : ''}`} />
@@ -114,7 +141,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           transition={{ delay: 0.5, duration: 1 }}
           className="mt-6 text-sm text-purple-700 font-medium"
         >
-          Test your knowledge with 10 cow facts!
+          Test your knowledge with cow facts!
         </motion.p>
       </motion.div>
       
