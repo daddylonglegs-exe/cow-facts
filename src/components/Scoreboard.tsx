@@ -18,7 +18,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({
   streakCount = 0,
   className
 }) => {
-  const percentage = totalQuestions > 0 ? Math.round((score / totalQuestions) * 100) : 0;
+  const progress = Math.min(streakCount / totalQuestions, 1) * 100;
   const showMultiplier = multiplier > 1;
 
   return (
@@ -35,13 +35,18 @@ const Scoreboard: React.FC<ScoreboardProps> = ({
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-3xl font-bold">{score} / {totalQuestions}</span>
+        <span className="text-3xl font-bold">{score}</span>
         <div className="ml-4 bg-gray-200 h-3 rounded-full w-32 overflow-hidden">
           <div 
             className="h-full bg-primary transition-all duration-500 ease-out"
-            style={{ width: `${percentage}%` }}
+            style={{ width: `${progress}%` }}
           ></div>
         </div>
+      </div>
+      
+      {/* Question counter */}
+      <div className="mt-1 text-sm text-gray-600">
+        Question {Math.min(streakCount, totalQuestions)} of {totalQuestions}
       </div>
       
       {/* Streak indicator */}
@@ -61,7 +66,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({
           </div>
           <span className="ml-2 font-medium">
             {streakCount} correct in a row
-            {streakCount >= 3 && " - Double points!"}
+            {multiplier > 1 && ` - ${multiplier}x points!`}
           </span>
         </div>
       )}

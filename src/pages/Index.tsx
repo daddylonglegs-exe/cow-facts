@@ -15,7 +15,7 @@ enum GameState {
 
 const Index = () => {
   const [gameState, setGameState] = useState<GameState>(GameState.START);
-  const [facts, setFacts] = useState(getShuffledFacts());
+  const [facts, setFacts] = useState(getShuffledFacts(10));
   const [finalScore, setFinalScore] = useState({ score: 0, total: 0 });
   const [leaderboardEntries, setLeaderboardEntries] = useState(getLeaderboardEntries());
   const [questionsCount, setQuestionsCount] = useState<10 | 20>(10);

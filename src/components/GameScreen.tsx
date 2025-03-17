@@ -13,6 +13,8 @@ type GameScreenProps = {
   onGameEnd: (score: number, total: number) => void;
 };
 
+const BASE_POINTS = 50; // Base points per correct answer
+
 const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
   const [currentFactIndex, setCurrentFactIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -24,7 +26,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
   const [multiplier, setMultiplier] = useState(1);
   
   const currentFact = facts[currentFactIndex];
-  const isGameOver = currentFactIndex >= facts.length;
+  const isLastQuestion = currentFactIndex === facts.length - 1;
   
   // Random animations for correct answers
   const correctAnimations: ('jump' | 'shake' | 'flip')[] = ['jump', 'shake', 'flip'];
@@ -41,13 +43,17 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
   // Update multiplier based on consecutive correct answers
   useEffect(() => {
     if (consecutiveCorrect >= 3) {
-      setMultiplier(2);
+      // Calculate progressive multiplier: 3-5 correct = 2x, 6-8 correct = 4x, 9+ correct = 8x
+      const multiplierValue = Math.pow(2, Math.floor(consecutiveCorrect / 3));
+      setMultiplier(multiplierValue);
     } else {
       setMultiplier(1);
     }
   }, [consecutiveCorrect]);
 
   const handleAnswer = (userAnswer: boolean) => {
+    if (isAnswered) return; // Prevent double answers
+    
     setIsAnswered(true);
     const isAnswerCorrect = userAnswer === currentFact.isTrue;
     setIsCorrect(isAnswerCorrect);
@@ -57,21 +63,25 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
       const newConsecutiveCorrect = consecutiveCorrect + 1;
       setConsecutiveCorrect(newConsecutiveCorrect);
       
-      // Apply multiplier for 3+ consecutive correct answers
-      const pointsToAdd = newConsecutiveCorrect >= 3 ? 2 : 1;
+      // Calculate new multiplier
+      const newMultiplier = newConsecutiveCorrect >= 3 ? 
+        Math.pow(2, Math.floor(newConsecutiveCorrect / 3)) : 1;
+      
+      // Apply points with multiplier
+      const pointsToAdd = BASE_POINTS * newMultiplier;
       setScore(prev => prev + pointsToAdd);
       
       // Play random animation
       const randomIndex = Math.floor(Math.random() * correctAnimations.length);
       setCowAnimation(correctAnimations[randomIndex]);
       
-      // Show appropriate toast message
-      if (newConsecutiveCorrect >= 3) {
+      // Show appropriate toast message with multiplier info
+      if (newMultiplier > 1) {
         toast.success(
           <div className="flex items-center gap-2">
             <Award className="h-5 w-5 text-yellow-500" />
             <div>
-              <div className="font-bold">Correct! (x2 POINTS!)</div>
+              <div className="font-bold">Correct! (x{newMultiplier} POINTS!)</div>
               <div className="text-sm">{newConsecutiveCorrect} correct in a row!</div>
             </div>
           </div>
@@ -85,30 +95,34 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
       setCowAnimation('wrong');
       toast.error(`Incorrect! The correct answer is: ${currentFact.isTrue ? 'True' : 'False'}`);
     }
-  };
-
-  const handleAnimationComplete = () => {
-    // If we've reached the end of the game, notify the parent
-    if (currentFactIndex === facts.length - 1) {
-      // Small delay before ending game
+    
+    // If this is the last question, trigger the game end after animation
+    if (isLastQuestion) {
+      const finalScore = score + (isAnswerCorrect ? BASE_POINTS * multiplier : 0);
       setTimeout(() => {
-        onGameEnd(score + (isCorrect ? (multiplier > 1 ? 2 : 1) : 0), facts.length);
-      }, 1000);
+        onGameEnd(finalScore, facts.length);
+      }, 1500);
     }
   };
 
-  const handleNextFact = () => {
-    // Move to next fact
-    setCurrentFactIndex(prev => prev + 1);
-    setIsAnswered(false);
-    setIsCorrect(null);
-    setCowAnimation('idle');
+  const handleAnimationComplete = () => {
+    // No further action needed here, as we handle game end in handleAnswer
   };
 
-  if (isGameOver) {
+  const handleNextFact = () => {
+    // Move to next fact only if we're not at the last question
+    if (currentFactIndex < facts.length - 1) {
+      setCurrentFactIndex(prev => prev + 1);
+      setIsAnswered(false);
+      setIsCorrect(null);
+      setCowAnimation('idle');
+    }
+  };
+
+  // Check if we've somehow gone beyond our facts array
+  if (currentFactIndex >= facts.length) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 relative">
-        {/* Background */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/lovable-uploads/157d82cf-97ee-428f-8233-67c2576a4d0b.png"
@@ -117,13 +131,9 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
           />
         </div>
         
-        {/* Content */}
         <div className="relative z-10 text-center glass-card p-8 max-w-lg w-full mx-auto animate-scale-in">
           <h2 className="text-3xl font-bold mb-4">Game Over!</h2>
-          <p className="text-xl mb-6">Your final score: {score} out of {facts.length}</p>
-          <div className="w-48 mx-auto mb-8">
-            <CowAnimation animationState="idle" />
-          </div>
+          <p className="text-xl mb-6">Your final score: {score}</p>
           <Button 
             onClick={() => onGameEnd(score, facts.length)}
             className="py-4 px-8 text-lg font-medium transition-all duration-300 hover:scale-105 active:scale-95 bg-primary hover:bg-primary/90"
@@ -159,6 +169,13 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
           />
         </div>
         
+        {/* Question counter */}
+        <div className="text-center mb-4">
+          <span className="bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+            Question {currentFactIndex + 1} of {facts.length}
+          </span>
+        </div>
+        
         {/* Fact card and cow animation */}
         <div className="flex-1 flex flex-col items-center justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl mx-auto items-center">
@@ -177,7 +194,7 @@ const GameScreen: React.FC<GameScreenProps> = ({ facts, onGameEnd }) => {
                 onFalseClick={() => handleAnswer(false)}
               />
               
-              {isAnswered && currentFactIndex < facts.length - 1 && (
+              {isAnswered && !isLastQuestion && (
                 <div className="mt-4 text-center">
                   <Button 
                     onClick={handleNextFact}
