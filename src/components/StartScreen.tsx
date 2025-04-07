@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import CowAnimation from './CowAnimation';
@@ -20,11 +19,11 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   const [hovering, setHovering] = useState(false);
   const [questionCount, setQuestionCount] = useState<10 | 20>(10);
   
-  // Add a subtle floating animation effect to the elements
+  // More fluid and gentle floating animation
   const floatingAnimation = {
-    y: [0, -10, 0],
+    y: [0, -15, 0],
     transition: {
-      duration: 4,
+      duration: 5,  // Increased duration for smoother movement
       repeat: Infinity,
       repeatType: "reverse" as const,
       ease: "easeInOut"
@@ -50,44 +49,56 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-400/30 to-transparent mix-blend-overlay"></div>
-        <img 
-          src="/lovable-uploads/157d82cf-97ee-428f-8233-67c2576a4d0b.png"
-          alt="Farmland background" 
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Floating particles for a dynamic feel */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-white/20 backdrop-blur-sm"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.4, 0.8, 0.4],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 3,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
+      {/* Modify the animations for a smoother, more subtle effect */}
+      <motion.div 
+        animate={floatingAnimation}
+        className="absolute w-full h-full"
+      >
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-400/30 to-transparent mix-blend-overlay"></div>
+          <img 
+            src="/lovable-uploads/157d82cf-97ee-428f-8233-67c2576a4d0b.png"
+            alt="Farmland background" 
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Floating particles for a dynamic feel */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(15)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full bg-white/20 backdrop-blur-sm"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  opacity: [0.4, 0.8, 0.4],
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 3,
+                  repeat: Infinity,
+                  delay: Math.random() * 5,
+                }}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+        {/* Background image and particles will now float more gently */}
+      </motion.div>
       
-      {/* Game Title and Start Button */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        animate={{ 
+          opacity: 1, 
+          y: 0,
+          transition: {
+            duration: 0.8,
+            ease: "easeOut"
+          }
+        }}
         className="relative z-10 text-center max-w-lg w-full mx-auto glass-card p-8 backdrop-blur-md bg-white/60 border border-white/40 rounded-2xl shadow-2xl"
       >
         <motion.h1 
@@ -144,27 +155,6 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           Test your knowledge with cow facts!
         </motion.p>
       </motion.div>
-      
-      {/* Floating cow silhouettes in the background */}
-      <div className="absolute bottom-10 right-10 opacity-20 w-24 h-24 -rotate-12">
-        <motion.div
-          animate={{
-            y: [0, -15, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        >
-          <img 
-            src="/lovable-uploads/cbcdaf46-1848-4f1c-afd6-b3fb35d358e4.png" 
-            alt="" 
-            className="w-full h-full" 
-          />
-        </motion.div>
-      </div>
     </div>
   );
 };
