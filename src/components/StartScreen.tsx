@@ -31,11 +31,11 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
     }
   };
   
-  // Smoother title animation with longer duration and gentler movement
+  // Faster and smoother title animation
   const titleAnimation = {
-    y: [0, -8, 0],
+    y: [0, -5, 0],
     transition: {
-      duration: 6,  // Longer duration for smoother movement
+      duration: 2.5,  // Faster duration for smoother movement
       repeat: Infinity,
       repeatType: "reverse" as const,
       ease: "easeInOut"
