@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -36,6 +37,16 @@ npm i
 npm run dev
 ```
 
+After making changes locally, you can push them back to the repository:
+
+```sh
+git add .
+git commit -m "Your commit message"
+git push
+```
+
+Changes pushed to the repository will be reflected in your Lovable project.
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
@@ -52,13 +63,14 @@ npm run dev
 
 ## What technologies are used for this project?
 
-This project is built with .
+This project is built with:
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- Framer Motion
 
 ## How can I deploy this project?
 
@@ -67,3 +79,4 @@ Simply open [Lovable](https://lovable.dev/projects/5fdb2240-828b-4656-ae05-4d0d8
 ## I want to use a custom domain - is that possible?
 
 We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+   
